@@ -24,22 +24,30 @@ void pause(void)
 
 int main(int argc, char *argv[])
 {
+  SDL_Surface *ecran = NULL, *background = NULL;
+  SDL_Rect backgroundCoord;
+  
+  backgroundCoord.x = 0;
+  backgroundCoord.y = 0;
 
-    SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
+  SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
+  
 
- 
+  ecran = SDL_SetVideoMode(960, 478, 32, SDL_HWSURFACE);
 
-    SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
-    SDL_WM_SetCaption("GET REKT", NULL);   
-
-    pause(); // Mise en pause du programme
-
- 
-
-    SDL_Quit(); // Arrêt de la SDL
-
- 
-
-    return EXIT_SUCCESS; // Fermeture du programme
-
+  SDL_WM_SetCaption("GET REKT", NULL);   
+  
+  background = SDL_LoadBMP("background.bmp");
+  SDL_BlitSurface(ecran, NULL, background, &backgroundCoord);
+  SDL_Flip(ecran);
+  pause(); // Mise en pause du programme
+  
+  SDL_FreeSurface(background);
+  
+  SDL_Quit(); // Arrêt de la SDL
+  
+  
+  
+  return EXIT_SUCCESS; // Fermeture du programme
+  
 }
