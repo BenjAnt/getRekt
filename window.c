@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   SDL_WM_SetCaption("GET REKT", NULL);   
   
   background = SDL_LoadBMP("background.bmp");
-  SDL_BlitSurface(ecran, NULL, background, &backgroundCoord);
+  SDL_BlitSurface(background, NULL, ecran, &backgroundCoord);
   SDL_Flip(ecran);
   pause(); // Mise en pause du programme
   
