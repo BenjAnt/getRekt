@@ -1,8 +1,9 @@
 #include <stdlib.h>
-
 #include <stdio.h>
-
-#include <SDL/SDL.h>
+#include "SDL.h"
+#include "structure.h"
+//#include "getRekt.h"
+#include "pipe.h"
 
 void pause(void);
 
@@ -20,13 +21,20 @@ void pause(void)
         }
     }
 }
- 
 
-int main(int argc, char *argv[])
+int main(void)
 {
-  SDL_Surface *ecran = NULL, *background = NULL;
+ SDL_Surface *ecran = NULL, *background = NULL;
   SDL_Rect backgroundCoord;
+  int i,j;
   
+  object_list * L = NULL;
+  object o;
+  L = readPipe(L);
+  o = L->data;
+  afficherPiece(&o);
+  //drawPipe(L);
+
   backgroundCoord.x = 0;
   backgroundCoord.y = 0;
 
@@ -38,16 +46,15 @@ int main(int argc, char *argv[])
   SDL_WM_SetCaption("GET REKT", NULL);   
   
   background = SDL_LoadBMP("background.bmp");
+  if(!background) printf("gg");
   SDL_BlitSurface(background, NULL, ecran, &backgroundCoord);
   SDL_Flip(ecran);
   pause(); // Mise en pause du programme
   
+
+  //main_loop(L);
   SDL_FreeSurface(background);
   
   SDL_Quit(); // Arrêt de la SDL
-  
-  
-  
-  return EXIT_SUCCESS; // Fermeture du programme
-  
+  return 0;
 }

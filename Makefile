@@ -34,7 +34,7 @@ LIBS = -lm -lSDL_ttf
 # define the C source files
 # TODO: update and complete the following line with your .c files names
 
-SRCS = window.c
+SRCS = main.c pipe.c structure.c
 
 # define the C object files 
 #
