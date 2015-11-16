@@ -8,16 +8,10 @@ typedef struct{
 }pos;
 
 struct object{
-  int tab[10][2];
-  SDL_Rect src_rect;
-  pos coord;
+  int tab[10];
+  int posX;
+  //pos coord;
 };
-
-typedef struct{
-  char r;
-  char g;
-  char b;
-}rgb;
 
 typedef struct object object;
 
@@ -33,6 +27,7 @@ typedef struct object_list object_list;
 object_list * object_list_cons(object p, object_list* L);
 
 /* free function */
+object_list * inverse_list(object_list *lst);
 
 //void object_list_free(object_list * L);
 

@@ -34,7 +34,7 @@ LFLAGS = -L../lib
 # define the C source files
 # TODO: update and complete the following line with your .c files names
 
-SRCS = main.c pipe.c structure.c sprite.c
+SRCS = main.c getRekt.c structure.c pipe.c
 
 # define the C object files 
 #
