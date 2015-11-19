@@ -27,6 +27,10 @@ typedef struct object_list object_list;
 object_list * object_list_cons(object p, object_list* L);
 
 /* free function */
+object_list *freeList(object_list *L);
+
+
+
 object_list * inverse_list(object_list *lst);
 
 //void object_list_free(object_list * L);

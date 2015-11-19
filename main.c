@@ -10,7 +10,8 @@ int main(void)
 {
   object_list * L = NULL;
   L = readPipe(L);
-  init();
-  handle_events(L);
+  init(L);
+  //handle_events(L);
+  //SDL_Quit;
   return 0;
 }

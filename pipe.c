@@ -18,7 +18,6 @@ void initTab(object * p)
   }
 }
 
-
 object_list * readPipe(object_list * L)
 {
   FILE * ptr_file;
@@ -62,8 +61,8 @@ object_list * readPipe(object_list * L)
       }
       
       else{
-	printf("caractère lu: %d\n", c);
-	perror("erreur a la lecture du fichier source\n");
+	printf("erreur a la lecture du fichier source \n caractere non conforme\n");
+	SDL_Quit;
       }
     }while(c != EOF);
     fclose(ptr_file);

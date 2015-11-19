@@ -5,14 +5,43 @@
 #define SUPERMANHEIGHT 85
 #define SUPERMANWIDTH 56
 
+
 void init(void){
- 
+  object_list * L = NULL;
+  L = readPipe(L);
+
+  SDL_Surface *startScreen = NULL;
+  SDL_Rect startScreenCoord; 
+  SDL_Event event;
+
   /* initialize SDL */
   SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("get Rekt", "SDL Animation");
 
   /* create window */
   screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+
+
+  startScreen = SDL_LoadBMP("startScreen.bmp");
+  startScreenCoord.x = 0;
+  startScreenCoord.y = 0;
+  SDL_BlitSurface(startScreen, NULL, screen, &startScreenCoord);
+  SDL_Flip(screen);
+  while(SDL_WaitEvent(&event)){
+    switch(event.type){
+    case SDL_QUIT: 
+      //SDL_Quit(); 
+      break;
+      
+    case SDL_KEYDOWN:
+      switch(event.key.keysym.sym){
+      case SDLK_SPACE: 
+	handle_events(L);
+	break;
+      }
+    }
+  }
+  SDL_FreeSurface(startScreen);
 }
 
 void handle_events(object_list * L){
@@ -24,10 +53,8 @@ void handle_events(object_list * L){
   int collisionSupermanEdge = 0;
   int collisionSupermanPipe = 0;
   int collision = 0;
-  
   background = SDL_LoadBMP("background.bmp");
   backgroundCoord = initBackground(backgroundCoord);
-    
 
   superman = SDL_LoadBMP("superman.bmp");
   SDL_SetColorKey(superman, SDL_SRCCOLORKEY, SDL_MapRGB(superman->format,0 ,255 ,0));
@@ -52,24 +79,23 @@ void handle_events(object_list * L){
     
     collisionSupermanPipe = printAllPipe(L, supermanCoord);  //superman tape un tuyau
     collisionSupermanEdge = !checkCollide(supermanCoord, backgroundCoord); //superman sort de l'écran
-    collision = collisionSupermanPipe || collisionSupermanEdge; //OU logique entre les 2 collisions possible
+    collision = collisionSupermanPipe || collisionSupermanEdge; //OU logique entre les 2 collisions possibles
     
-    if(collision == 0){
+    if(collision == 0){ //pas de collision
       moveAllPipe(L);
       SDL_BlitSurface(background, NULL, screen, &backgroundCoord);
       SDL_BlitSurface(superman, NULL, screen, &supermanCoord);
       printAllPipe(L, supermanCoord);    
     }    
     else{
-      gameOver();
+      freeList(L);
+      init();
     }
     SDL_Flip(screen);
   }
 
   SDL_FreeSurface(background);
   SDL_FreeSurface(superman);
-  //SDL_FreeSurface(gameOverScreen);
-  //SDL_Quit;
 }
 
 
@@ -82,16 +108,6 @@ int checkCollide(SDL_Rect box1, SDL_Rect box2){
   else{                     //collision
     return 1;
   }
-}
-
-void gameOver(void){
-  SDL_Surface *gameOverScreen = NULL;
-  SDL_Rect gameOverCoord;
-  gameOverCoord.x = 0;
-  gameOverCoord.y = 0;
-  gameOverScreen = SDL_LoadBMP("gameOver.bmp");
-  SDL_BlitSurface(gameOverScreen, NULL, screen, &gameOverCoord);
-  SDL_Flip(screen);
 }
 
 SDL_Rect initBackground(SDL_Rect backgroundCoord){

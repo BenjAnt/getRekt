@@ -9,6 +9,5 @@ int gameover;
 SDL_Surface* screen;
 
 void init(void);
-void main_loop(void);
 void handle_events(object_list * L);
 #endif

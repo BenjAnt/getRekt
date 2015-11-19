@@ -36,4 +36,16 @@ object_list * inverse_list(object_list *lst){
   return lst;
 }
 
+object_list *freeList(object_list *L){
+
+  if(!L)
+    return NULL;
+  else{
+    object_list *tmp;
+    tmp = L->next;
+    free(L);
+    return freeList(tmp);
+  }
+}
+
 
